@@ -35,7 +35,7 @@ jobs:
         run: |
           rm ./build/libs/*plain.jar
           scp ./build/libs/*.jar ${{ secrets.USER }}@${{ secrets.HOST }}:${{ secrets.PATH_TO_DEPLOY }}
-          ssh ${{ secrets.USER }}@${{ secrets.HOST }} 'sudo systemctl stop bot.service;sudo systemctl start bot.service'
+          ssh ${{ secrets.USER }}@${{ secrets.HOST }} 'sudo chmod 777 ${{ secrets.PATH_TO_DEPLOY }}/*;sudo systemctl stop bot.service;sudo systemctl start bot.service'
 
       - name: cleanup
         run: rm -rf ~/.ssh
