@@ -16,10 +16,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Set up JDK
-        uses: actions/setup-java@v3
+      - name: Set up latest Oracle JDK 21
+        uses: oracle-actions/setup-java@v1
         with:
-          java-version: '21'
+          website: oracle.com
+          release: 21
 
       - name: Build with Gradle
         run: ./gradlew build -x test
