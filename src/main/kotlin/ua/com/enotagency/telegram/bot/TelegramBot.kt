@@ -2,9 +2,10 @@ package ua.com.enotagency.telegram.bot
 
 import com.github.kotlintelegrambot.bot
 import com.github.kotlintelegrambot.entities.ChatId
-import jakarta.annotation.PostConstruct
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.info.BuildProperties
+import org.springframework.context.event.ContextRefreshedEvent
+import org.springframework.context.event.EventListener
 import org.springframework.stereotype.Component
 
 @Component
@@ -27,8 +28,8 @@ class TelegramBot(
         bot.sendMessage(ChatId.fromId(channelId), message)
     }
 
-    @PostConstruct
+    @EventListener(ContextRefreshedEvent::class)
     private fun sendVersion(){
-        bot.sendMessage(ChatId.fromId(channelId),"Використовується версія ${buildProperties.version}")
+        sendMessage("Використовується версія ${buildProperties.version}")
     }
 }
