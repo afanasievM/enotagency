@@ -1,3 +1,4 @@
+
 import java.net.URI
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
@@ -10,7 +11,7 @@ plugins {
 }
 
 group = "ua.com"
-version = "0.0.1-SNAPSHOT"
+version = "0.0.2"
 
 java {
 	sourceCompatibility = JavaVersion.VERSION_21
@@ -31,6 +32,9 @@ dependencies {
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
+springBoot {
+	buildInfo()
+}
 tasks.withType<KotlinCompile> {
 	kotlinOptions {
 		freeCompilerArgs += "-Xjsr305=strict"
