@@ -36,3 +36,6 @@ jobs:
           scp ./build/libs/*SNAPSHOT.jar ${{ secrets.USER }}@${{ secrets.HOST }}:${{ secrets.PATH_TO_DEPLOY }}
           systemctl stop bot.service
           systemctl start bot.service
+
+      - name: cleanup
+        run: rm -rf ~/.ssh
