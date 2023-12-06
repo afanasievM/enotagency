@@ -25,14 +25,14 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew build -x test
 
+      - name: Install ssh keys
+        run: |
+            install -m 600 -D /dev/null ~/.ssh/id_rsa
+            echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+            ssh-keyscan -H ${{ secrets.HOST }} > ~/.ssh/known_hosts
+
       - name: Deploy to Server
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: ./build/libs/*SNAPSHOT.jar
-          target: ${{ secrets.PATH_TO_DEPLOY }}
-          script: |
-            systemctl stop bot.service
-            systemctl start bot.service
+        run: |
+          scp ./build/libs/*SNAPSHOT.jar ${{ secrets.USER }}@${{ secrets.HOST }}:${{ secrets.PATH_TO_DEPLOY }}
+          systemctl stop bot.service
+          systemctl start bot.service
