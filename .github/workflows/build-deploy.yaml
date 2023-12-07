@@ -34,7 +34,7 @@ jobs:
       - name: Deploy to Server
         run: |
           rm ./build/libs/*plain.jar
-          ssh ${{ secrets.USER }}@${{ secrets.HOST }} 'sudo rm -r ${{ secrets.PATH_TO_DEPLOY }}/*.jar'
+          ssh ${{ secrets.USER }}@${{ secrets.HOST }} 'sudo rm -r ${{ secrets.PATH_TO_DEPLOY }}/*.jar' &
           scp ./build/libs/*.jar ${{ secrets.USER }}@${{ secrets.HOST }}:${{ secrets.PATH_TO_DEPLOY }}
           ssh ${{ secrets.USER }}@${{ secrets.HOST }} <<EOF
           sudo systemctl stop bot.service

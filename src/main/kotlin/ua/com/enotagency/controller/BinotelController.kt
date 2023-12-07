@@ -3,6 +3,7 @@ package ua.com.enotagency.controller
 import org.slf4j.LoggerFactory
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 import ua.com.enotagency.dto.BinotelSuccessResponse
 import ua.com.enotagency.dto.CallRequest
@@ -25,6 +26,20 @@ class BinotelController(private val channelService: ChannelService) {
     @PostMapping("/binotel/getCall/acs")
     fun getWebCalls(@RequestBody request: GetCallRequest): BinotelSuccessResponse {
         channelService.sendRequestNumber(request)
+        return BinotelSuccessResponse()
+    }
+
+    @PostMapping("/binotel")
+    fun get1WebCalls(@RequestParam request: String): BinotelSuccessResponse {
+        println("get1")
+        println(request)
+        return BinotelSuccessResponse()
+    }
+
+    @PostMapping("/")
+    fun get2WebCalls(@RequestParam request: String): BinotelSuccessResponse {
+        println("get2")
+        println(request)
         return BinotelSuccessResponse()
     }
 
