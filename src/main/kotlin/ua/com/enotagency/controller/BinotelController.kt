@@ -23,7 +23,7 @@ class BinotelController(private val channelService: ChannelService) {
         return BinotelSuccessResponse()
     }
 
-    @PostMapping("/binotel/getCall/acs", consumes = arrayOf(MediaType.APPLICATION_FORM_URLENCODED_VALUE))
+    @PostMapping("/binotel/getсall/acs", consumes = arrayOf(MediaType.APPLICATION_FORM_URLENCODED_VALUE))
     fun getWebCalls(@RequestParam request: Map<String, String>): BinotelSuccessResponse {
         request.forEach{k,v-> println("$k >>>>> $v")}
 //        channelService.sendRequestNumber(request)
