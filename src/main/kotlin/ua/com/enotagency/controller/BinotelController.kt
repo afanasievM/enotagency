@@ -22,7 +22,7 @@ class BinotelController(private val channelService: ChannelService) {
         return BinotelSuccessResponse()
     }
 
-    @PostMapping("/binotel/calls/incoming")
+    @PostMapping("/binotel/getCall/acs")
     fun getWebCalls(@RequestBody request: GetCallRequest): BinotelSuccessResponse {
         channelService.sendRequestNumber(request)
         return BinotelSuccessResponse()
