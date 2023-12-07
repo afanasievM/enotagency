@@ -2,6 +2,7 @@ package ua.com.enotagency.controller
 
 import org.slf4j.LoggerFactory
 import org.springframework.http.MediaType
+import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
@@ -13,8 +14,8 @@ class BinotelController(private val channelService: ChannelService) {
     private val log = LoggerFactory.getLogger(this.javaClass)
 
 
-    @PostMapping("/binotel/calls/incoming", consumes = arrayOf(MediaType.APPLICATION_FORM_URLENCODED_VALUE))
-
+//    @PostMapping("/binotel/calls/incoming", consumes = arrayOf(MediaType.APPLICATION_FORM_URLENCODED_VALUE))
+    @PostMapping("/**", consumes = arrayOf(MediaType.APPLICATION_FORM_URLENCODED_VALUE))
     fun resolveIncomingBinotel(@RequestParam request: Map<String, String>): BinotelSuccessResponse {
         request.forEach{k,v-> println("$k >>>>> $v")}
 //        when{
@@ -23,7 +24,8 @@ class BinotelController(private val channelService: ChannelService) {
         return BinotelSuccessResponse()
     }
 
-    @PostMapping("/binotel/getсall/acs", consumes = arrayOf(MediaType.APPLICATION_FORM_URLENCODED_VALUE))
+//    @PostMapping("/binotel/getсall/acs", consumes = arrayOf(MediaType.APPLICATION_FORM_URLENCODED_VALUE))
+    @GetMapping("/**", consumes = arrayOf(MediaType.APPLICATION_FORM_URLENCODED_VALUE))
     fun getWebCalls(@RequestParam request: Map<String, String>): BinotelSuccessResponse {
         request.forEach{k,v-> println("$k >>>>> $v")}
 //        channelService.sendRequestNumber(request)
