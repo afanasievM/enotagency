@@ -11,7 +11,7 @@ plugins {
 }
 
 group = "ua.com"
-version = "0.0.2"
+version = "0.0.3"
 
 java {
 	sourceCompatibility = JavaVersion.VERSION_21
@@ -29,6 +29,7 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("com.google.code.gson:gson:2.10.1")
 	implementation("com.github.kotlin-telegram-bot.kotlin-telegram-bot:telegram:6.1.0")
+	implementation("io.github.microutils:kotlin-logging:2.0.8")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
