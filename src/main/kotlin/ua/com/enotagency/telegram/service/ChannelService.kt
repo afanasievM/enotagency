@@ -16,10 +16,10 @@ class ChannelService(
 ) {
 
     fun sendRequestNumber(request: GetCallRequest) {
-        sendMessage(request.toString())
+        request.externalNumber?.let { sendMessage(it) }
     }
 
-    private fun sendMessage(message: String) {
+    fun sendMessage(message: String) {
         bot.sendMessage(channelId, message)
     }
 
