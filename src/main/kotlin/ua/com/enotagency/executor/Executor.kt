@@ -5,7 +5,7 @@ import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
 object Executor {
-    private val executorService: ExecutorService = Executors.newFixedThreadPool(3)
+    private val executorService: ExecutorService = Executors.newFixedThreadPool(2)
 
     fun execute(task: () -> Unit) {
         executorService.execute { task() }
