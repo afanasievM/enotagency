@@ -32,19 +32,19 @@ class BinotelController(private val channelService: ChannelService) {
 //    }
 
     @PostMapping("/binotel/calls/incoming", consumes = arrayOf(MediaType.APPLICATION_FORM_URLENCODED_VALUE))
-    fun resolveIncomingBinotel(@RequestBody request: ReceivedTheCall): BinotelSuccessResponse {
+    fun resolveReceivedCall(@RequestBody request: ReceivedTheCall): BinotelSuccessResponse {
         log.info("ReceivedTheCall recieved:\n${request}")
         return BinotelSuccessResponse()
     }
 
     @PostMapping("/binotel/calls/incoming", consumes = arrayOf(MediaType.APPLICATION_FORM_URLENCODED_VALUE))
-    fun resolveIncomingBinotel(@RequestBody request: CallCompleted): BinotelSuccessResponse {
+    fun resolveCallCompleted(@RequestBody request: CallCompleted): BinotelSuccessResponse {
         log.info("CallCompleted recieved:\n${request}")
         return BinotelSuccessResponse()
     }
 
     @PostMapping("/binotel/calls/incoming", consumes = arrayOf(MediaType.APPLICATION_FORM_URLENCODED_VALUE))
-    fun resolveIncomingBinotel(@RequestBody request: CallSetting): BinotelSuccessResponse {
+    fun resolveCallSettings(@RequestBody request: CallSetting): BinotelSuccessResponse {
         log.info("CallSetting recieved:\n${request}")
         return BinotelSuccessResponse()
     }
