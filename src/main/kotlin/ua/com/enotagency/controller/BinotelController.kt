@@ -5,8 +5,13 @@ import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.ModelAttribute
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RestController
+import ua.com.enotagency.dto.AnsweredTheCall
 import ua.com.enotagency.dto.BinotelSuccessResponse
+import ua.com.enotagency.dto.CallCompleted
+import ua.com.enotagency.dto.CallSetting
 import ua.com.enotagency.dto.GetCallRequest
+import ua.com.enotagency.dto.HangupTheCall
+import ua.com.enotagency.dto.ReceivedTheCall
 import ua.com.enotagency.telegram.service.ChannelService
 
 @RestController
@@ -16,12 +21,13 @@ class BinotelController(private val channelService: ChannelService) {
 
     @PostMapping("/binotel/calls/incoming", consumes = arrayOf(MediaType.APPLICATION_FORM_URLENCODED_VALUE))
     fun resolveIncomingBinotel(@ModelAttribute request: Any): BinotelSuccessResponse {
-        log.info("Recieved \n$request")
-//        request.forEach{log.info("key:${it.key} -> value:${it.value}")}
-//        log.info("Recieved $request")
         when (request) {
-
-//            request.callCompleted != null -> log.info("Call completed")
+            (request is CallSetting) -> log.info("Call setting recieved:\n${request as CallSetting}")
+            (request is ReceivedTheCall) -> log.info("Call setting recieved:\n${request as ReceivedTheCall}")
+            (request is CallCompleted) -> log.info("Call setting recieved:\n${request as CallCompleted}")
+            (request is AnsweredTheCall) -> log.info("Call setting recieved:\n${request as AnsweredTheCall}")
+            (request is HangupTheCall) -> log.info("Call setting recieved:\n${request as HangupTheCall}")
+            else -> log.info("Unknown type \n${request.toString()}")
         }
         return BinotelSuccessResponse()
     }
