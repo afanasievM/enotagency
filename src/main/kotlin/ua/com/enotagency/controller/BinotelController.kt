@@ -6,10 +6,12 @@ import org.springframework.web.bind.annotation.ModelAttribute
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
+import ua.com.enotagency.dto.AnsweredTheCall
 import ua.com.enotagency.dto.BinotelSuccessResponse
 import ua.com.enotagency.dto.CallCompleted
 import ua.com.enotagency.dto.CallSetting
 import ua.com.enotagency.dto.GetCallRequest
+import ua.com.enotagency.dto.HangupTheCall
 import ua.com.enotagency.dto.ReceivedTheCall
 import ua.com.enotagency.telegram.service.ChannelService
 
@@ -46,6 +48,18 @@ class BinotelController(private val channelService: ChannelService) {
     @PostMapping("/binotel/calls/incoming", consumes = arrayOf(MediaType.APPLICATION_FORM_URLENCODED_VALUE))
     fun resolveCallSettings(@RequestBody request: CallSetting): BinotelSuccessResponse {
         log.info("CallSetting recieved:\n${request}")
+        return BinotelSuccessResponse()
+    }
+
+    @PostMapping("/binotel/calls/incoming", consumes = arrayOf(MediaType.APPLICATION_FORM_URLENCODED_VALUE))
+    fun resolveHangupTheCall(@RequestBody request: HangupTheCall): BinotelSuccessResponse {
+        log.info("HangupTheCall recieved:\n${request}")
+        return BinotelSuccessResponse()
+    }
+
+    @PostMapping("/binotel/calls/incoming", consumes = arrayOf(MediaType.APPLICATION_FORM_URLENCODED_VALUE))
+    fun resolveAnsweredTheCall(@RequestBody request: AnsweredTheCall): BinotelSuccessResponse {
+        log.info("AnsweredTheCall recieved:\n${request}")
         return BinotelSuccessResponse()
     }
 
