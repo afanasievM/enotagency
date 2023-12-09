@@ -17,7 +17,7 @@ class BinotelController(private val channelService: ChannelService) {
     private val log = LoggerFactory.getLogger(this.javaClass)
 
 
-    @PostMapping("/binotel/calls/incoming", consumes = arrayOf(MediaType.APPLICATION_FORM_URLENCODED_VALUE))
+    @PostMapping("/binotel/calls/incoming", consumes = arrayOf(MediaType.APPLICATION_JSON_VALUE))
     fun resolveIncomingBinotel(@RequestBody request: String): BinotelSuccessResponse {
         log.info(request.toString())
         println(URLDecoder.decode(request, StandardCharsets.UTF_8.toString()))
