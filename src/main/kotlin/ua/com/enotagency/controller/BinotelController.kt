@@ -1,5 +1,7 @@
 package ua.com.enotagency.controller
 
+import java.net.URLDecoder
+import java.nio.charset.StandardCharsets
 import org.slf4j.LoggerFactory
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.ModelAttribute
@@ -18,6 +20,7 @@ class BinotelController(private val channelService: ChannelService) {
     @PostMapping("/binotel/calls/incoming", consumes = arrayOf(MediaType.APPLICATION_FORM_URLENCODED_VALUE))
     fun resolveIncomingBinotel(@RequestBody request: String): BinotelSuccessResponse {
         log.info(request.toString())
+        println(URLDecoder.decode(request, StandardCharsets.UTF_8.toString()))
 //        val requestObj = BinotelCallRequestBuilder.build(request)
 //        log.info(requestObj.toString())
         return BinotelSuccessResponse()
