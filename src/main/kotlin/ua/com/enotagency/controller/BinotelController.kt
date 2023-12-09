@@ -4,6 +4,7 @@ import org.slf4j.LoggerFactory
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.ModelAttribute
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
 import ua.com.enotagency.dto.BinotelSuccessResponse
 import ua.com.enotagency.dto.GetCallRequest
@@ -15,7 +16,7 @@ class BinotelController(private val channelService: ChannelService) {
 
 
     @PostMapping("/binotel/calls/incoming", consumes = arrayOf(MediaType.APPLICATION_FORM_URLENCODED_VALUE))
-    fun resolveIncomingBinotel(@ModelAttribute request: String): BinotelSuccessResponse {
+    fun resolveIncomingBinotel(@RequestBody request: String): BinotelSuccessResponse {
         log.info(request.toString())
 //        val requestObj = BinotelCallRequestBuilder.build(request)
 //        log.info(requestObj.toString())
