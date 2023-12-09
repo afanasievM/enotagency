@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import ua.com.enotagency.builder.BinotelCallRequestBuilder
 import ua.com.enotagency.builder.BinotelRequestBuilder
+
 @Configuration
 class AppConfig {
     @Bean
