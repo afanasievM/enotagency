@@ -1,11 +1,13 @@
 package ua.com.enotagency.dto
 
+import ua.com.enotagency.dto.enum.BinotelRequestType
+
 data class CallCompleted(
-    val requestType: String?,
-    val attemptsCounter: Int?,
+    override val requestType: BinotelRequestType,
+    val attemptsCounter: String?,
     val callDetails: CallDetails?,
     val language: String?
-)
+) : BinotelCallRequest(requestType)
 
 data class CallDetails(
     val companyID: String?,
