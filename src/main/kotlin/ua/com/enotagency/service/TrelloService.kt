@@ -15,12 +15,12 @@ class TrelloService(private val trelloClient: Trello) {
 
 
     @PostConstruct
-    private fun getCallListId(): String {
-        return trelloClient.getBoard(boardId)
+    private fun getCallListId() {
+        callListId = trelloClient.getBoard(boardId)
             .fetchLists()
             .filter {
-                println(it.name)
-                it.name.contains(LIST_CALLS_NAME) }
+                it.name.contains(LIST_CALLS_NAME)
+            }
             .map { it.id }
             .first
     }
@@ -39,7 +39,6 @@ class TrelloService(private val trelloClient: Trello) {
                 false
             }
         }.ifEmpty {
-            println("empty")
             val newCard = Card()
             newCard.name = externalNumber
             newCard.idBoard = boardId
