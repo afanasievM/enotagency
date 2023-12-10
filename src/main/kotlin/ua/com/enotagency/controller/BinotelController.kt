@@ -4,9 +4,10 @@ import org.slf4j.LoggerFactory
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.ModelAttribute
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
+import ua.com.enotagency.builder.BinotelCallRequestBuilder
 import ua.com.enotagency.dto.BinotelSuccessResponse
-import ua.com.enotagency.dto.CallCompleted
 import ua.com.enotagency.dto.GetCallRequest
 import ua.com.enotagency.telegram.service.ChannelService
 
@@ -16,11 +17,10 @@ class BinotelController(private val channelService: ChannelService) {
 
 
     @PostMapping("/binotel/calls/incoming", consumes = arrayOf(MediaType.APPLICATION_FORM_URLENCODED_VALUE))
-    fun resolveIncomingBinotel(@ModelAttribute request: CallCompleted): BinotelSuccessResponse {
-        log.info(request.toString())
-//        println(URLDecoder.decode(request, StandardCharsets.UTF_8.toString()))
-//        val requestObj = BinotelCallRequestBuilder.build(request)
-//        log.info(requestObj.toString())
+    fun resolveIncomingBinotel(@RequestParam request: Map<String, String>): BinotelSuccessResponse {
+        log.info("Recieved:\n$request")
+        val requestObj = BinotelCallRequestBuilder.build(request)
+        log.info(requestObj.toString())
         return BinotelSuccessResponse()
     }
 
