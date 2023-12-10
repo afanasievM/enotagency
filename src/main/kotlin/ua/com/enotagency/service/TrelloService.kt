@@ -18,7 +18,9 @@ class TrelloService(private val trelloClient: Trello) {
     private fun getCallListId(): String {
         return trelloClient.getBoard(boardId)
             .fetchLists()
-            .filter { it.name.contains(LIST_CALLS_NAME) }
+            .filter {
+                println(it.name)
+                it.name.contains(LIST_CALLS_NAME) }
             .map { it.id }
             .first
     }
