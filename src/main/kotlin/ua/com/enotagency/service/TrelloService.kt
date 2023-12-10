@@ -18,17 +18,15 @@ class TrelloService(private val trelloClient: Trello) {
     private fun getCallListId(): String {
         return trelloClient.getBoard(boardId)
             .fetchLists()
-            .filter { it.name == LIST_CALLS_NAME }
+            .filter { it.name.contains(LIST_CALLS_NAME) }
             .map { it.id }
             .first
     }
 
     fun createCallCard(requestObj: CallCompleted) {
-        println("call")
         if (!isInCall(requestObj)) {
             return
         }
-        println("calltype ok")
         val board = getBoard()
         val callsCards = board.fetchCards().filter { it.idList == callListId }
         val externalNumber = requestObj.callDetails?.externalNumber
