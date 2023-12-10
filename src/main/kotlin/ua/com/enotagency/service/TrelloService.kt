@@ -42,6 +42,7 @@ class TrelloService(private val trelloClient: Trello) {
             val newCard = Card()
             newCard.name = externalNumber
             newCard.idBoard = boardId
+            newCard.pos=2
             trelloClient.createCard(callListId, newCard)
         }
     }
