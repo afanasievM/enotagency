@@ -43,7 +43,7 @@ class CallCompletedBuilder : BinotelRequestBuilder {
             ),
             pbxNumberData = PbxNumberData(
                 request["callDetails[pbxNumberData][number]"]?.toLong(),
-                request["callDetails[pbxNumberData][name]=SIP Lifecell"]
+                request["callDetails[pbxNumberData][name]"]
             ),
             linkToCallRecordOverlayInMyBusiness = request["callDetails[linkToCallRecordOverlayInMyBusiness]"],
             linkToCallRecordInMyBusiness = request["callDetails[linkToCallRecordInMyBusiness]"],
