@@ -1,14 +1,18 @@
 package ua.com.enotagency.service
 
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.julienvey.trello.Trello
 import com.julienvey.trello.domain.Card
 import jakarta.annotation.PostConstruct
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import ua.com.enotagency.dto.CallCompleted
 
 @Service
 class TrelloService(private val trelloClient: Trello) {
+    private val log = LoggerFactory.getLogger(this.javaClass)
+
     @Value("\${trello.boardId}")
     lateinit var boardId: String
     private lateinit var callListId: String
@@ -44,6 +48,11 @@ class TrelloService(private val trelloClient: Trello) {
             newCard.idBoard = boardId
             trelloClient.createCard(callListId, newCard)
         }
+    }
+
+    fun getCardById(cardId: String) {
+        val card = trelloClient.getBoardCard(boardId, cardId)
+        log.info(jacksonObjectMapper().writeValueAsString(card))
     }
 
     // TODO MAKE CALLTYPE ENUMS

@@ -20,7 +20,6 @@ class BinotelController(
     ) {
     private val log = LoggerFactory.getLogger(this.javaClass)
 
-
     @PostMapping("/binotel/calls/incoming", consumes = arrayOf(MediaType.APPLICATION_FORM_URLENCODED_VALUE))
     fun resolveIncomingBinotel(@RequestParam request: Map<String, String>): BinotelSuccessResponse {
         log.info("Recieved:\n$request")
