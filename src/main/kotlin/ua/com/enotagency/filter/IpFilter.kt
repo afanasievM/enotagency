@@ -20,6 +20,10 @@ class IpFilter(@Value("\${allowed.ip}") private val allowedIPs: Set<String>) : F
     override fun doFilter(request: ServletRequest, response: ServletResponse, chain: FilterChain) {
         val clientIp = request.remoteAddr
         log.info(request.remoteHost)
+        log.info(request.serverName)
+        log.info(request.localName)
+        log.info(request.localAddr)
+        log.info(request.toString())
         if (!allowedIPs.contains(clientIp)) {
             log.warn("Restricted $clientIp")
             return
