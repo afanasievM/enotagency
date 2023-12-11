@@ -1,7 +1,9 @@
 package ua.com.enotagency.dto
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import ua.com.enotagency.dto.enum.BinotelRequestType
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class CallCompleted(
     override val requestType: BinotelRequestType,
     val attemptsCounter: String?,
@@ -9,6 +11,7 @@ data class CallCompleted(
     val language: String?
 ) : BinotelCallRequest(requestType)
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class CallDetails(
     val companyID: String?,
     val generalCallID: String?,
