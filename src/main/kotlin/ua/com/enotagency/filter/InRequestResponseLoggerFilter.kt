@@ -18,7 +18,7 @@ import org.springframework.web.util.ContentCachingResponseWrapper
 
 @Component
 @Order(2)
-class InRequestResponseLoggerFilter: Filter {
+class InRequestResponseLoggerFilter : Filter {
     private val log = LoggerFactory.getLogger(this.javaClass)
 
     @Throws(ServletException::class)
@@ -31,6 +31,7 @@ class InRequestResponseLoggerFilter: Filter {
         val wreq = ContentCachingRequestWrapper(request as HttpServletRequest)
         val wres = ContentCachingResponseWrapper(response as HttpServletResponse)
         log.info("{}: {}?{}", wreq.method, wreq.requestURI, if (wreq.queryString != null) wreq.queryString else "")
+        wreq.headerNames.asIterator().forEach { "Header: $it : ${wreq.getHeader(it)}" }
         chain.doFilter(wreq, wres)
         while (wreq.inputStream.read() >= 0) {
         }
