@@ -18,8 +18,8 @@ class TrelloController(
 
     @PostMapping("trello/card/horse", consumes = arrayOf(MediaType.ALL_VALUE))
     @ResponseStatus(HttpStatus.OK)
-    fun resolveIncomingBinotel(@RequestParam cardId: String) {
-        log.info("Recieved:\n$cardId")
-        Executor.execute { trelloService.getCardById(cardId) }
+    fun resolveIncomingBinotel(@RequestParam request: Map<String, String>) {
+        log.info("Recieved:\n$request")
+        Executor.execute { trelloService.getCardById(request["cardId"]!!) }
     }
 }
