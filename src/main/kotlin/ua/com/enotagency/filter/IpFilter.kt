@@ -23,7 +23,10 @@ class IpFilter(@Value("\${allowed.ip}") private val allowedIPs: Set<String>) : F
         log.info(request.serverName)
         log.info(request.localName)
         log.info(request.localAddr)
-        log.info(request.toString())
+        log.info(request.contentType)
+        log.info(request.remotePort.toString())
+        log.info(request.localPort.toString())
+        log.info(request.serverPort.toString())
         if (!allowedIPs.contains(clientIp)) {
             log.warn("Restricted $clientIp")
             return
