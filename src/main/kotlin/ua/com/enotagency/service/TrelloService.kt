@@ -51,7 +51,8 @@ class TrelloService(private val trelloClient: Trello) {
     }
 
     fun getCardById(cardId: String) {
-        val card = getBoard().fetchCard(cardId)
+        log.info("cardId:$cardId")
+        val card = trelloClient.getBoardCard(boardId, cardId)
         log.info(jacksonObjectMapper().writeValueAsString(card))
     }
 
