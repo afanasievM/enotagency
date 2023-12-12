@@ -4,8 +4,6 @@ import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.julienvey.trello.Trello
 import com.julienvey.trello.domain.Card
 import jakarta.annotation.PostConstruct
-import java.time.Instant
-import java.util.*
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
@@ -53,7 +51,7 @@ class TrelloService(private val trelloClient: Trello) {
     }
 
     fun getCardById(cardId: String) {
-        val card = trelloClient.getBoardCard(boardId, cardId)
+        val card = getBoard().fetchCard(cardId)
         log.info(jacksonObjectMapper().writeValueAsString(card))
     }
 
