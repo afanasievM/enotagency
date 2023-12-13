@@ -17,6 +17,9 @@ class IncomeAllowingInterceptor(
         val clientIp = request.remoteAddr
         log.info("IpAddress: $clientDomain")
         log.info("Domain: $clientDomain")
+        request.headerNames.asIterator().forEach {
+            log.info(request.getHeader(it))
+        }
         if (!isAllowedDomain(clientDomain) || !allowedIPs.contains(clientIp)) {
             response.sendError(HttpServletResponse.SC_FORBIDDEN, "Access Denied")
             return false
