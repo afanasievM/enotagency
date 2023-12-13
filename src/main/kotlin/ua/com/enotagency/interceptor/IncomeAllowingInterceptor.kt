@@ -2,6 +2,7 @@ package ua.com.enotagency.interceptor
 
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
+import java.net.InetAddress
 import org.slf4j.LoggerFactory
 import org.springframework.web.servlet.HandlerInterceptor
 
@@ -17,6 +18,8 @@ class IncomeAllowingInterceptor(
         val clientIp = request.remoteAddr
         log.info("IpAddress: $clientDomain")
         log.info("Domain: $clientDomain")
+        log.info("ServerName: ${request.serverName}")
+        log.info("caononn ${InetAddress.getByName(clientIp).canonicalHostName}")
         request.headerNames.asIterator().forEach {
             log.info(request.getHeader(it))
         }
