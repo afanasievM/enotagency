@@ -11,7 +11,7 @@ plugins {
 }
 
 group = "ua.com"
-version = "2.1.5"
+version = "2.2.0"
 
 java {
 	sourceCompatibility = JavaVersion.VERSION_21
@@ -25,12 +25,15 @@ repositories {
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-web")
+	implementation("org.springframework.boot:spring-boot-starter-cache")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("com.google.code.gson:gson:2.10.1")
 	implementation("com.github.kotlin-telegram-bot.kotlin-telegram-bot:telegram:6.1.0")
 	implementation("io.github.microutils:kotlin-logging:2.0.8")
 	implementation("com.taskadapter:trello-java-wrapper:0.14")
+	implementation("com.github.ben-manes.caffeine:caffeine:3.1.8")
+	implementation("commons-net:commons-net:3.10.0")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 

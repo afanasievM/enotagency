@@ -2,35 +2,33 @@ package ua.com.enotagency.interceptor
 
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
-import java.net.InetAddress
+import org.apache.commons.net.util.SubnetUtils
 import org.slf4j.LoggerFactory
 import org.springframework.web.servlet.HandlerInterceptor
+import ua.com.enotagency.service.AtlassianIPService
 
 class IncomeAllowingInterceptor(
     private val allowedIPs: Set<String>,
-    private val allowedDomains: Set<String>
+    private val atlassianIPService: AtlassianIPService
 ) : HandlerInterceptor {
     private val log = LoggerFactory.getLogger(this.javaClass)
 
     @Throws(Exception::class)
     override fun preHandle(request: HttpServletRequest, response: HttpServletResponse, handler: Any): Boolean {
-        val clientDomain = request.remoteHost
         val clientIp = request.remoteAddr
-        log.info("IpAddress: $clientDomain")
-        log.info("Domain: $clientDomain")
-        log.info("ServerName: ${request.serverName}")
-        log.info("caononn ${InetAddress.getByName(clientIp).canonicalHostName}")
-        request.headerNames.asIterator().forEach {
-            log.info(request.getHeader(it))
-        }
-        if (!isAllowedDomain(clientDomain) || !allowedIPs.contains(clientIp)) {
+        val range = atlassianIPService.getAtlassianIPRanges()
+        if (!allowedIPs.contains(clientIp) || !range.checkRange(clientIp)) {
             response.sendError(HttpServletResponse.SC_FORBIDDEN, "Access Denied")
             return false
         }
         return true
     }
+}
 
-    private fun isAllowedDomain(clientDomain: String): Boolean {
-        return allowedDomains.stream().anyMatch { clientDomain.endsWith(it) }
+private fun List<String>.checkRange(ip: String): Boolean {
+    return this.any {
+        println(it)
+        val subnet = SubnetUtils(it)
+        return subnet.info.isInRange(ip)
     }
 }
