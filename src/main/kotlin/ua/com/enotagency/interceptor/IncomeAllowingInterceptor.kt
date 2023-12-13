@@ -28,12 +28,13 @@ class IncomeAllowingInterceptor(
 }
 
 private fun List<String>.checkRange(ip: String): Boolean {
-    return this.any {
+    return !this.find {
         val subnet = SubnetUtils(it)
         println("*".repeat(50))
         println(ip)
         println("*".repeat(50))
         subnet.info.allAddresses.forEach { println(it) }
         return subnet.info.allAddresses.contains(ip)
-    }
+    }.isNullOrEmpty()
+
 }
