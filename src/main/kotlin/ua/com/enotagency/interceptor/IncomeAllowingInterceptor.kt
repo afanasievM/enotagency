@@ -14,14 +14,10 @@ class IncomeAllowingInterceptor(
     @Throws(Exception::class)
     override fun preHandle(request: HttpServletRequest, response: HttpServletResponse, handler: Any): Boolean {
         val clientDomain = request.remoteHost
-        log.info("Domain: $clientDomain")
-        if (!isAllowedDomain(clientDomain)) {
-            response.sendError(HttpServletResponse.SC_FORBIDDEN, "Access Denied")
-            return false
-        }
         val clientIp = request.remoteAddr
         log.info("IpAddress: $clientDomain")
-        if (!allowedIPs.contains(clientIp)) {
+        log.info("Domain: $clientDomain")
+        if (!isAllowedDomain(clientDomain) || !allowedIPs.contains(clientIp)) {
             response.sendError(HttpServletResponse.SC_FORBIDDEN, "Access Denied")
             return false
         }
