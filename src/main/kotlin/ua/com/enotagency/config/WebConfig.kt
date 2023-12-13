@@ -16,7 +16,7 @@ class WebConfig : WebMvcConfigurer {
     @Value("\${allowed.domains}")
     private lateinit var allowedDomains: Set<String>
     override fun addInterceptors(registry: InterceptorRegistry) {
-        registry.addInterceptor(incomeAllowingInterceptor(allowedIPs, allowedDomains)).addPathPatterns("/*")
+        registry.addInterceptor(incomeAllowingInterceptor(allowedIPs, allowedDomains)).addPathPatterns("/**")
     }
 
     @Bean

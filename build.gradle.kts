@@ -11,7 +11,7 @@ plugins {
 }
 
 group = "ua.com"
-version = "2.1.0"
+version = "2.1.5"
 
 java {
 	sourceCompatibility = JavaVersion.VERSION_21
