@@ -18,6 +18,8 @@ class IncomeAllowingInterceptor(
         val clientIp = request.remoteAddr
         log.info("IpAddress: $clientIp")
         val range = atlassianIPService.getAtlassianIPRanges()
+        println("masks")
+        range.forEach { println(it) }
         if (!(allowedIPs.contains(clientIp) || range.checkRange(clientIp))) {
             log.info("Access denied for ip: $clientIp")
             response.sendError(HttpServletResponse.SC_FORBIDDEN, "Access Denied")
@@ -35,6 +37,7 @@ private fun List<String>.checkRange(ip: String): Boolean {
         println("*".repeat(50))
         subnet.info.allAddresses.forEach { println(it) }
         return subnet.info.allAddresses.contains(ip)
+//        return subnet.info.isInRange(ip)
     }.isNullOrEmpty()
 
 }
