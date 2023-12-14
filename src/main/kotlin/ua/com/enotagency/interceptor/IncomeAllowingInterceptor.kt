@@ -16,7 +16,6 @@ class IncomeAllowingInterceptor(
     @Throws(Exception::class)
     override fun preHandle(request: HttpServletRequest, response: HttpServletResponse, handler: Any): Boolean {
         val clientIp = request.remoteAddr
-        log.info("IpAddress: $clientIp")
         val range = atlassianIPService.getAtlassianIPRanges()
         if (!(allowedIPs.contains(clientIp) || range.checkRange(clientIp))) {
             log.info("Access denied for ip: $clientIp")
