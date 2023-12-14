@@ -17,9 +17,7 @@ open class AllowedIPService(
         return networkInfo!!.items
             .filter { it.product.contains(TRELLO_FILTER) && !it.cidr.contains(":") }
             .map { it.cidr }
-            .map {
-                SubnetUtils(it).info.allAddresses.asIterable()
-            }
+            .map { SubnetUtils(it).info.allAddresses.asIterable() }
             .flatten()
             .plus(allowedIPs)
             .toSortedSet()
