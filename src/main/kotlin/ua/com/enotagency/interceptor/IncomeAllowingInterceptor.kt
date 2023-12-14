@@ -2,34 +2,21 @@ package ua.com.enotagency.interceptor
 
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
-import org.apache.commons.net.util.SubnetUtils
 import org.slf4j.LoggerFactory
 import org.springframework.web.servlet.HandlerInterceptor
-import ua.com.enotagency.service.AtlassianIPService
+import ua.com.enotagency.service.AllowedIPService
 
-class IncomeAllowingInterceptor(
-    private val allowedIPs: Set<String>,
-    private val atlassianIPService: AtlassianIPService
-) : HandlerInterceptor {
+class IncomeAllowingInterceptor(private val atlassianIPService: AllowedIPService) : HandlerInterceptor {
     private val log = LoggerFactory.getLogger(this.javaClass)
 
     @Throws(Exception::class)
     override fun preHandle(request: HttpServletRequest, response: HttpServletResponse, handler: Any): Boolean {
         val clientIp = request.remoteAddr
-        val range = atlassianIPService.getAtlassianIPRanges()
-        if (!(allowedIPs.contains(clientIp) || range.checkRange(clientIp))) {
+        if (!atlassianIPService.getAllowedIps().contains(clientIp)) {
             log.info("Access denied for ip: $clientIp")
             response.sendError(HttpServletResponse.SC_FORBIDDEN, "Access Denied")
             return false
         }
         return true
     }
-}
-
-private fun List<String>.checkRange(ip: String): Boolean {
-    return !this.find {
-        val subnet = SubnetUtils(it)
-        return@find subnet.info.allAddresses.contains(ip)
-    }.isNullOrEmpty()
-
 }

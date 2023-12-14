@@ -7,7 +7,7 @@ import org.springframework.web.client.RestTemplate
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 import ua.com.enotagency.interceptor.IncomeAllowingInterceptor
-import ua.com.enotagency.service.AtlassianIPService
+import ua.com.enotagency.service.AllowedIPService
 
 
 @Configuration
@@ -15,13 +15,9 @@ class WebConfig : WebMvcConfigurer {
     @Value("\${allowed.ip}")
     private lateinit var allowedIPs: Set<String>
 
-    @Value("\${allowed.domains}")
-    private lateinit var allowedDomains: Set<String>
-
-
     override fun addInterceptors(registry: InterceptorRegistry) {
         registry
-            .addInterceptor(IncomeAllowingInterceptor(allowedIPs, atlassianIpService()))
+            .addInterceptor(IncomeAllowingInterceptor(atlassianIpService()))
             .addPathPatterns("/**")
     }
 
@@ -29,5 +25,5 @@ class WebConfig : WebMvcConfigurer {
     fun restTemplate() = RestTemplate()
 
     @Bean
-    fun atlassianIpService() = AtlassianIPService(restTemplate())
+    fun atlassianIpService() = AllowedIPService(restTemplate(), allowedIPs)
 }
