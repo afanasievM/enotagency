@@ -15,12 +15,13 @@ open class AllowedIPService(
     open fun getAllowedIps(): SortedSet<String> {
         val networkInfo = restTemplate.getForObject(ATLAS_IP_URL, AtlassianNetworkInfo::class.java)
         return networkInfo!!.items
-            .stream()
             .filter { it.product.contains(TRELLO_FILTER) || !it.cidr.contains(":") }
             .map { it.cidr }
-            .flatMap { SubnetUtils(it).info.allAddresses.asList().stream() }
-            .flatMap { allowedIPs.stream() }
-            .toList()
+            .map {
+                SubnetUtils(it).info.allAddresses.asIterable()
+            }
+            .flatten()
+            .plus(allowedIPs)
             .toSortedSet()
     }
 
