@@ -18,9 +18,10 @@ open class AllowedIPService(
             .filter { it.product.contains(TRELLO_FILTER) }
             .map { it.cidr }
             .filter { !it.contains(":") }
-            .flatMap {
+            .map {
                 SubnetUtils(it).info.allAddresses.asIterable()
             }
+            .flatten()
             .flatMap { allowedIPs }
             .toSortedSet()
     }
@@ -31,3 +32,4 @@ open class AllowedIPService(
         const val TRELLO_FILTER = "trello"
     }
 }
+//801ms
