@@ -15,7 +15,7 @@ open class AllowedIPService(
     open fun getAllowedIps(): SortedSet<String> {
         val networkInfo = restTemplate.getForObject(ATLAS_IP_URL, AtlassianNetworkInfo::class.java)
         return networkInfo!!.items
-            .filter { it.product.contains(TRELLO_FILTER) || !it.cidr.contains(":") }
+            .filter { it.product.contains(TRELLO_FILTER) && !it.cidr.contains(":") }
             .map { it.cidr }
             .map {
                 SubnetUtils(it).info.allAddresses.asIterable()
