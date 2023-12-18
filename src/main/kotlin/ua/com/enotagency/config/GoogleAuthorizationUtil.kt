@@ -22,12 +22,12 @@ import org.springframework.boot.info.BuildProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
-@Configuration
+//@Configuration
 class GoogleAuthorizationUtil(
     private val buildProperties: BuildProperties,
     @Value("\${credentials.file.path}") private val credentialsFilePath: String
 ) {
-    @Bean
+//    @Bean
     @Throws(IOException::class, GeneralSecurityException::class)
     fun credential(): Credential {
         val clientSecrets: GoogleClientSecrets = GoogleClientSecrets.load(
@@ -50,7 +50,7 @@ class GoogleAuthorizationUtil(
         return AuthorizationCodeInstalledApp(googleAuthorizationCodeFlow, LocalServerReceiver()).authorize("user")
     }
 
-    @Bean
+//    @Bean
     @Throws(IOException::class, GeneralSecurityException::class)
     fun getSheetsService(credential: Credential): Sheets {
         return Sheets.Builder(
