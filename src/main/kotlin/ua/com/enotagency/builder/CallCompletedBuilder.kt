@@ -42,7 +42,7 @@ class CallCompletedBuilder : BinotelRequestBuilder {
                 request["callDetails[employeeData][name]"], request["callDetails[employeeData][email]"]
             ),
             pbxNumberData = PbxNumberData(
-                request["callDetails[pbxNumberData][number]"]?.toLong(),
+                request["callDetails[pbxNumberData][number]"],
                 request["callDetails[pbxNumberData][name]"]
             ),
             linkToCallRecordOverlayInMyBusiness = request["callDetails[linkToCallRecordOverlayInMyBusiness]"],
