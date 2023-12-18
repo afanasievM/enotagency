@@ -4,6 +4,7 @@ import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.julienvey.trello.Trello
 import com.julienvey.trello.domain.Card
 import jakarta.annotation.PostConstruct
+import java.util.TreeSet
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
@@ -16,6 +17,8 @@ class TrelloService(private val trelloClient: Trello) {
     @Value("\${trello.boardId}")
     lateinit var boardId: String
     private lateinit var callListId: String
+    @Value("\${filtering.numbers}")
+    lateinit var filteringNumbers: TreeSet<String>
 
 
     @PostConstruct
@@ -30,7 +33,7 @@ class TrelloService(private val trelloClient: Trello) {
     }
 
     fun createCallCard(requestObj: CallCompleted) {
-        if (!isInCall(requestObj)) {
+        if (!isInCall(requestObj) || !isLeadCallNumber(requestObj)) {
             return
         }
         val board = getBoard()
@@ -58,6 +61,9 @@ class TrelloService(private val trelloClient: Trello) {
 
     // TODO MAKE CALLTYPE ENUMS
     private fun isInCall(requestObj: CallCompleted) = requestObj.callDetails?.callType?.equals("0")!!
+
+    private fun isLeadCallNumber(requestObj: CallCompleted) = filteringNumbers
+        .contains(requestObj.callDetails?.pbxNumberData?.number)
 
     private fun getBoard() = trelloClient.getBoard(boardId)
 

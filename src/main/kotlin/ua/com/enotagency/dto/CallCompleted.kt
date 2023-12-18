@@ -41,7 +41,7 @@ data class EmployeeData(
 )
 
 data class PbxNumberData(
-    val number: Long?,
+    val number: String?,
     val name: String?
 )
 
