@@ -1,6 +1,5 @@
 package ua.com.enotagency.service
 
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.julienvey.trello.Trello
 import com.julienvey.trello.domain.Card
 import jakarta.annotation.PostConstruct
@@ -9,12 +8,12 @@ import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import ua.com.enotagency.dto.CallCompleted
-import ua.com.enotagency.repository.HorseRepository
+import ua.com.enotagency.repository.RieltorRepository
 
 @Service
 class TrelloService(
     private val trelloClient: Trello,
-    private val horseRepository: HorseRepository
+    private val rieltorRepository: RieltorRepository
 ) {
     private val log = LoggerFactory.getLogger(this.javaClass)
 

@@ -24,20 +24,12 @@ object CardPersonMapper {
     }
 
     private const val DELIMITER = ":"
-    private const val NAME_PATTERN = "Имя:"
-    private const val ROOM_NUMBER_PATTERN = "Количество комнат:"
-    private const val REGION_PATTERN = "Район:"
-    private const val BUDGET_PATTERN = "Бюджет:"
-    private const val FLOOR_PATTERN = "Этаж:"
-    private const val CONDITION_PATTERN = "Состояние:"
-    private const val NOTES_FIRST_PATTERN = "Примечание 1:"
-    private const val NOTES_SECOND_PATTERN = "Примечание 2:"
+    private const val NAME_PATTERN = "Имя"
+    private const val ROOM_NUMBER_PATTERN = "Количество комнат"
+    private const val REGION_PATTERN = "Район"
+    private const val BUDGET_PATTERN = "Бюджет"
+    private const val FLOOR_PATTERN = "Этаж"
+    private const val CONDITION_PATTERN = "Состояние"
+    private const val NOTES_FIRST_PATTERN = "Примечание 1"
+    private const val NOTES_SECOND_PATTERN = "Примечание 2"
 }
-//Имя: name
-//Количество комнат: 5
-//Район: Obolonskyi
-//Бюджет: 10000000
-//Этаж: 5
-//Состояние: good
-//Примечание 1: first
-//Примечание 2: second
