@@ -9,14 +9,19 @@ import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import ua.com.enotagency.dto.CallCompleted
+import ua.com.enotagency.repository.HorseRepository
 
 @Service
-class TrelloService(private val trelloClient: Trello) {
+class TrelloService(
+    private val trelloClient: Trello,
+    private val horseRepository: HorseRepository
+) {
     private val log = LoggerFactory.getLogger(this.javaClass)
 
     @Value("\${trello.boardId}")
     lateinit var boardId: String
     private lateinit var callListId: String
+
     @Value("\${filtering.numbers}")
     lateinit var filteringNumbers: TreeSet<String>
 
@@ -29,7 +34,7 @@ class TrelloService(private val trelloClient: Trello) {
                 it.name.contains(LIST_CALLS_NAME)
             }
             .map { it.id }
-            .first
+            .first()
     }
 
     fun createCallCard(requestObj: CallCompleted) {
@@ -57,6 +62,7 @@ class TrelloService(private val trelloClient: Trello) {
         log.info("cardId:$cardId")
         val card = trelloClient.getBoardCard(boardId, cardId)
         log.info(jacksonObjectMapper().writeValueAsString(card))
+        horseRepository.findAll()
     }
 
     // TODO MAKE CALLTYPE ENUMS
