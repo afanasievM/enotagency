@@ -13,8 +13,8 @@ abstract class DescriptionRepositoryImpl(
     private val spreadSheetId: String
 ) : DescriptionRepository {
 
-    override fun findAll(){
-        sheets.spreadsheets().values().batchGet(spreadSheetId).execute().valueRanges.forEach { println(it.toString()) }
+    override fun findAll() {
+        sheets.spreadsheets().values().get(spreadSheetId, "Horses").execute().getValues().forEach { println(it) }
     }
 
     override fun save(cardPerson: CardPerson) {
