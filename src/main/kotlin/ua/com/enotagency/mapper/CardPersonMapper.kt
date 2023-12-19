@@ -5,9 +5,11 @@ import ua.com.enotagency.entity.CardPerson
 
 object CardPersonMapper {
     fun map(card: Card): CardPerson {
+        println(card)
         val description = card.desc.split("\n").associate {
             it.substringBefore(DELIMITER) to it.substringAfter(DELIMITER).trim()
         }
+        println(description)
         return CardPerson(
             name = description[NAME_PATTERN],
             phoneNumber = card.name.substringBefore(" ").trim(),
@@ -31,3 +33,11 @@ object CardPersonMapper {
     private const val NOTES_FIRST_PATTERN = "Примечание 1:"
     private const val NOTES_SECOND_PATTERN = "Примечание 2:"
 }
+//Имя: name
+//Количество комнат: 5
+//Район: Obolonskyi
+//Бюджет: 10000000
+//Этаж: 5
+//Состояние: good
+//Примечание 1: first
+//Примечание 2: second
