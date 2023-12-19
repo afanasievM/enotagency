@@ -11,7 +11,7 @@ plugins {
 }
 
 group = "ua.com"
-version = "2.2.1"
+version = "3.0.0"
 
 java {
 	sourceCompatibility = JavaVersion.VERSION_21
@@ -34,8 +34,6 @@ dependencies {
 	implementation("com.taskadapter:trello-java-wrapper:0.14")
 	implementation("com.github.ben-manes.caffeine:caffeine:3.1.8")
 	implementation("commons-net:commons-net:3.10.0")
-//	implementation("com.google.oauth-client:google-oauth-client-jetty:1.34.1")
-//	implementation("com.google.apis:google-api-services-oauth2:v2-rev157-1.25.0")
 	implementation("com.google.auth:google-auth-library-oauth2-http:1.20.0")
 	implementation("com.google.apis:google-api-services-sheets:v4-rev612-1.25.0")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
