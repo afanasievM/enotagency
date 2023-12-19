@@ -58,12 +58,9 @@ class TrelloService(
         }
     }
 
-    fun getCardById(cardId: String) {
-        log.info("cardId:$cardId")
-        val card = trelloClient.getBoardCard(boardId, cardId)
-        log.info(jacksonObjectMapper().writeValueAsString(card))
-        horseRepository.findAll()
-    }
+    fun getCardById(cardId: String) = trelloClient.getBoardCard(boardId, cardId)!!
+
+    fun removeCardById(cardId: String) = trelloClient.deleteCard(cardId)
 
     // TODO MAKE CALLTYPE ENUMS
     private fun isInCall(requestObj: CallCompleted) = requestObj.callDetails?.callType?.equals("0")!!

@@ -1,11 +1,12 @@
 package ua.com.enotagency.repository
 
 import com.google.api.services.sheets.v4.Sheets
+import com.google.api.services.sheets.v4.model.ValueRange
 import ua.com.enotagency.entity.CardPerson
 
 interface DescriptionRepository {
     fun save(cardPerson: CardPerson)
-    fun findAll()
+    fun findAll(): List<List<Any>>
 }
 
 abstract class DescriptionRepositoryImpl(
@@ -13,11 +14,36 @@ abstract class DescriptionRepositoryImpl(
     private val spreadSheetId: String
 ) : DescriptionRepository {
 
-    override fun findAll() {
-        sheets.spreadsheets().values().get(spreadSheetId, "Horses").execute().getValues().forEach { println(it) }
-    }
+    abstract val listName: String
+
+    override fun findAll() = sheets.spreadsheets().values().get(spreadSheetId, listName).execute().getValues().orEmpty()
 
     override fun save(cardPerson: CardPerson) {
-        sheets.spreadsheets().values().batchGet(spreadSheetId)
+        val valueRange = createValueRange(cardPerson)
+        sheets.spreadsheets()
+            .values()
+            .append(spreadSheetId, listName, valueRange)
+            .setValueInputOption("RAW")
+            .execute()
+    }
+
+    private fun createValueRange(cardPerson: CardPerson): ValueRange = ValueRange().apply {
+        range = listName
+        majorDimension = "ROWS"
+        setValues(
+            listOf(
+                listOf(
+                    cardPerson.phoneNumber,
+                    cardPerson.name,
+                    cardPerson.roomNumber,
+                    cardPerson.region,
+                    cardPerson.budget,
+                    cardPerson.floor,
+                    cardPerson.condition,
+                    cardPerson.notesFirst,
+                    cardPerson.notesSecond,
+                )
+            )
+        )
     }
 }
