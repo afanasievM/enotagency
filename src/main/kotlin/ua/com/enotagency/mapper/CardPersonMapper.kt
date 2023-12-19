@@ -5,11 +5,9 @@ import ua.com.enotagency.entity.CardPerson
 
 object CardPersonMapper {
     fun map(card: Card): CardPerson {
-        println(card)
         val description = card.desc.split("\n").associate {
             it.substringBefore(DELIMITER) to it.substringAfter(DELIMITER).trim()
         }
-        println(description)
         return CardPerson(
             name = description[NAME_PATTERN],
             phoneNumber = card.name.substringBefore(" ").trim(),

@@ -10,11 +10,11 @@ interface RieltorRepository : DescriptionRepository {
 @Repository
 class RieltorRepositoryImpl(
     sheets: Sheets,
-    @Value("\${horse.spreadSheet.id}") spreadSheetId: String
+    @Value("\${rieltor.spreadSheet.id}") spreadSheetId: String
 ) : RieltorRepository, DescriptionRepositoryImpl(sheets, spreadSheetId) {
     override val listName = LIST_NAME
 
     companion object {
-        const val LIST_NAME = "Horses"
+        const val LIST_NAME = "Rieltor"
     }
 }
