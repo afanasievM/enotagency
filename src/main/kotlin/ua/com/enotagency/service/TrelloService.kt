@@ -3,6 +3,8 @@ package ua.com.enotagency.service
 import com.julienvey.trello.Trello
 import com.julienvey.trello.domain.Card
 import jakarta.annotation.PostConstruct
+import java.time.Instant
+import java.util.Date
 import java.util.TreeSet
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
@@ -53,6 +55,8 @@ class TrelloService(
             val newCard = Card()
             newCard.name = externalNumber
             newCard.idBoard = boardId
+            newCard.desc = CARD_DESCRIPTION_TEMPLATE
+            newCard.due = Date.from(Instant.now().plusSeconds(CARD_DUE_TIME_SECONDS))
             trelloClient.createCard(callListId, newCard)
         }
     }
@@ -71,5 +75,14 @@ class TrelloService(
 
     companion object {
         private const val LIST_CALLS_NAME = "Звонки"
+        private const val CARD_DESCRIPTION_TEMPLATE = "Имя:\n" +
+                "Количество комнат:\n" +
+                "Район:\n" +
+                "Бюджет:\n" +
+                "Этаж:\n" +
+                "Состояние:\n" +
+                "Примечание 1:\n" +
+                "Примечание 2:"
+        private const val CARD_DUE_TIME_SECONDS = 60 * 60 * 24L
     }
 }
